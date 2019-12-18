@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+
+  auth-service-postgres-local:
+    restart: always
+    image: postgres
+    env_file:
+      - .env
+    volumes:
+      - ./docker/local/postgres/data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  auth-service-django-local:
+    restart: always
+    image: auth-service-django-local
+    build:
+      context: .
+      dockerfile: ./docker/local/django/Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - .:/code
+    ports:
+      - 8000:8000
+      - 5000:3000
+    links:
+      - auth-service-postgres-local
+    depends_on:
+      - auth-service-postgres-local
+    entrypoint: /code/docker/local/django/start.sh

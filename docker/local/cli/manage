@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# use the django manage.py command from within a docker container from shell on host
+
+ARGS="$@"
+
+docker-compose exec auth-service-django-local sh -c "cd /code && pipenv run python manage.py $ARGS"

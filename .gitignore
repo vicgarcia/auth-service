@@ -1,0 +1,22 @@
+# python cached
+*.pyc
+**/__pycache__/
+**/.pytest_cache/
+
+# .env file
+.env
+
+# IDE related
+.vscode
+
+# junk files
+.DS_Store
+*.swp
+*.tmp
+
+# exclude docker postgres container data
+docker/local/postgres/data/*
+
+# exclude public and private keys used for JWT encode/decode
+jwt.public.key
+jwt.private.key
