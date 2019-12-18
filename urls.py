@@ -3,6 +3,7 @@ from django.conf.urls import url
 from core import views as core_views
 from account import views as account_views
 from tokens import views as tokens_views
+from admin import views as admin_views
 
 
 urlpatterns = [
@@ -21,5 +22,9 @@ urlpatterns = [
     path('token/refresh/', tokens_views.RefreshView.as_view()),
     path('token/revoke/', tokens_views.RevokeView.as_view()),
     path('token/inspect/', tokens_views.InspectView.as_view()),
+
+    # admin management apis
+    url(r'^users/', include(admin_views.user_router.urls)),
+    url(r'^tokens/', include(admin_views.token_router.urls)),
 
 ]
