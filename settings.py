@@ -79,7 +79,7 @@ class base(configuration):
 
     AUTH_USER_MODEL = 'users.User'
 
-    AUTH_TOKEN_EXPIRE_TIME = 300
+    AUTH_TOKEN_EXPIRE_TIME = 3600
 
     AUTH_EMAIL_FROM_ADDRESS = 'test@example.com'
 
@@ -90,7 +90,7 @@ class base(configuration):
 
     @classmethod
     def setup(cls):
-        
+
         # load private/public keys from config files used for jwt encoding
 
         with open(f'{cls.BASE_DIR}/jwt.public.key', 'r') as f:
@@ -132,7 +132,7 @@ class development(base):
             }
         }
     }
-    
+
 
 class local(development):
 
