@@ -8,11 +8,11 @@ The User model utilizes email addresses as the identifier for an account instead
 
 The User model utilizes a Postgres JSONField 'profile'. This allows an arbitrary JSON object to be stored as the user profile data. When JWT tokens are issued, this object is encrypted as part of the token and can be utilized from the token by other services.
 
-The User model has only the typical 'is_staff' field, and does not also have the typical 'is_superuser' feature. This was done to make the custom user model compatible with the DRF 'IsAdminUser' permission without committing to a seperation of admin/superusers.
+The User model has only the typical 'is_staff' field, and does not also have the typical 'is_superuser' feature. This was done to make the custom user model compatible with the DRF 'IsAdminUser' permission while eliminating the notion of admin/superuser which is largely relevant to integration with the Django admin system.
 
 Tokens are issued when a user provides a valid email/password login or exchanges a valid refresh token. A access and refresh token pair (a tokenset) is issued. The access token is a json object encoded using RSA-256 public/private key encryption. The encoded payload contains token/session data and user profile data. The access token is intended to be sent on requests to seperate microservices, which would be able to decrypt the token (utilizing the RSA public key), validate the token, then access user profile data within the token.
 
-Access tokens have a configurable short lifetime (defaulted to one hour and configured in the Django settings). Access tokens are issued with refresh tokens, which are longer lived (default has no expiration, proof of concept), and are only used to request a new access token. Once a refresh token has been used to retrieve a new token set, that refresh token will no longer be valid.
+Access tokens have a configurable short lifetime (defaulted to one hour and configured in the Django settings). Access tokens are issued with refresh tokens, which are longer lived (default has no expiration, this is after all a proof of concept), and are only used to request a new access token. Once a refresh token has been used to retrieve a new token set, that refresh token will no longer be valid.
 
 Endpoints are provided for signup, management of account (change email, password, update profile), partial implementations of email verification and password reset, login + issue token, exchange refresh token for new tokenset, and revoke tokenset.
 
@@ -108,6 +108,8 @@ response is a 400 with json body on error
 }
 ```
 
+---
+
 
 #### /account/manage/
 
@@ -159,6 +161,8 @@ response is a 400 with json body on error
 }
 ```
 
+---
+
 
 #### /account/verify/
 
@@ -199,6 +203,8 @@ response is a 400 with json body on error
   "error": "invalid request"
 }
 ```
+
+---
 
 
 #### /account/reset/
@@ -245,6 +251,8 @@ the second POST request is made with a json body
 
 successful when provided a proper code and valid password
 
+---
+
 
 #### /token/login/
 
@@ -277,6 +285,8 @@ response is a 400 with json body on error
 }
 ```
 
+---
+
 
 #### /token/refresh/
 
@@ -308,6 +318,8 @@ response is a 400 with json body on error
 }
 ```
 
+---
+
 
 #### /token/revoke/
 
@@ -335,6 +347,8 @@ response is a 400 with json body on error
   "error": "invalid revoke"
 }
 ```
+
+---
 
 
 #### /token/inspect/
@@ -373,6 +387,8 @@ response is a 400 with json body on error
   "error": "invalid token"
 }
 ```
+
+---
 
 
 #### /admin/users/
@@ -414,6 +430,8 @@ response is a 403 with json body on error
   "detail": "You do not have permission to perform this action."
 }
 ```
+
+---
 
 
 #### /admin/users/{user_id}/
@@ -469,6 +487,8 @@ response is a 400 with json body on error
 }
 ```
 
+---
+
 
 #### /admin/tokens/
 
@@ -511,6 +531,8 @@ response is a 403 with json body on error
 }
 ```
 
+---
+
 
 #### /admin/tokens/{token_id}/
 
@@ -537,6 +559,8 @@ GET request returns 200 response with json body
 DELETE request returns 204 response with empty body
 
 tokens will be marked as revoked (not deleted)
+
+---
 
 
 ### reference
