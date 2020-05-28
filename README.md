@@ -20,7 +20,6 @@ The User model uses an 'is_staff' field to designate admin users. User accounts 
 
 The clients subdirectory in the root of the repository contains components for use with another Django application (microservice) that would utilize tokens being issued by this service.  The TokenAuthentication component is for use with Django Rest Framework, for use as a views 'authentication_classes' value, and will populate the request.user object with an instance of the TokenUser component hydrated from the provided auth token.
 
-
 ### Running the Project Locally w/ Docker
 
 clone the repository
@@ -71,9 +70,9 @@ https://insomnia.rest/
 
 using the provided insomnia.yaml file has all of the api routes setup to make requests with the REST client.
 
+## API
 
-## APIs
-
+---
 
 #### /account/signup/
 
@@ -109,7 +108,6 @@ response is a 400 with json body on error
 ```
 
 ---
-
 
 #### /account/manage/
 
@@ -163,7 +161,6 @@ response is a 400 with json body on error
 
 ---
 
-
 #### /account/verify/
 
 provide endpoints for user email address verification
@@ -206,7 +203,6 @@ response is a 400 with json body on error
 
 ---
 
-
 #### /account/reset/
 
 provide endpoints for password reset flow
@@ -221,7 +217,6 @@ the first POST request is made with a json body
   "email": "test@example.com"
 }
 ```
-
 
 to perform verification, an email would be sent with a verification code to the user's email address. the code would ideally be used with a link that would return the code in the url for use by a web app to make the second step request.
 
@@ -252,7 +247,6 @@ the second POST request is made with a json body
 successful when provided a proper code and valid password
 
 ---
-
 
 #### /token/login/
 
@@ -287,7 +281,6 @@ response is a 400 with json body on error
 
 ---
 
-
 #### /token/refresh/
 
 provide a refresh token to receive a renewed auth tokenset
@@ -320,7 +313,6 @@ response is a 400 with json body on error
 
 ---
 
-
 #### /token/revoke/
 
 provide a refresh token to revoke an auth tokenset
@@ -349,7 +341,6 @@ response is a 400 with json body on error
 ```
 
 ---
-
 
 #### /token/inspect/
 
@@ -389,7 +380,6 @@ response is a 400 with json body on error
 ```
 
 ---
-
 
 #### /admin/users/
 
@@ -432,7 +422,6 @@ response is a 403 with json body on error
 ```
 
 ---
-
 
 #### /admin/users/{user_id}/
 
@@ -489,7 +478,6 @@ response is a 400 with json body on error
 
 ---
 
-
 #### /admin/tokens/
 
 allow admin users to query tokens
@@ -533,7 +521,6 @@ response is a 403 with json body on error
 
 ---
 
-
 #### /admin/tokens/{token_id}/
 
 allow admin users to retrieve and manage tokens
@@ -561,7 +548,6 @@ DELETE request returns 204 response with empty body
 tokens will be marked as revoked (not deleted)
 
 ---
-
 
 ### reference
 
