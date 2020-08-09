@@ -88,6 +88,8 @@ class base(configuration):
     JWT_PUBLIC_KEY = None
     JWT_PRIVATE_KEY = None
 
+    PROFILE_JSON_SCHEMA = None
+
     @classmethod
     def setup(cls):
 

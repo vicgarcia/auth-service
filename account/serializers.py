@@ -49,6 +49,7 @@ class SignupSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
+        # todo: handle profile here
         return user
 
 

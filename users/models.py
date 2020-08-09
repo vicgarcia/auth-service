@@ -89,3 +89,7 @@ class User(AbstractBaseUser):
     def update_last_login(self):
         self.last_login = now()
         self.save(update_fields=['last_login'])
+
+    # todo: can we access profile thru a property to auto-merge it with schema
+
+    # todo: override save() method to merge with json schema
