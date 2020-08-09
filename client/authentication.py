@@ -14,10 +14,10 @@ class TokenUser(AnonymousUser):
         user is populated based on content of the jwt token
     """
 
-    def __init__(self, jwt_payload):
-        self.id = jwt_payload['user']
-        self.profile = jwt_payload['profile']
-        self.payload = jwt_payload
+    def __init__(self, payload):
+        self.id = payload['user']
+        self.profile = payload['profile']
+        self.payload = payload
 
     @property
     def is_authenticated(self):
